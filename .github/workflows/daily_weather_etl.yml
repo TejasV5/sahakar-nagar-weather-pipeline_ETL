@@ -2,7 +2,8 @@ name: Sahakar Nagar Weather ETL
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  
+    - cron: '*/30 * * * *'  # Runs every 30 minutes
+  workflow_dispatch:      # Allows manual trigger
 
 jobs:
   run-pipeline:
@@ -15,17 +16,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10' # Updated to 3.10 to fix your "FutureWarning"
 
       - name: Install Dependencies
         run: |
           pip install pandas google-cloud-bigquery requests openpyxl db-dtypes pyarrow
 
-      
       - name: Run ETL Script
-        env:
-          
+        env: 
+          # CRITICAL FIX: This passes the secret from GitHub to Python
           GCP_KEYS_JSON: ${{ secrets.GCP_KEYS_JSON }}
-          
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: python ETL.py
