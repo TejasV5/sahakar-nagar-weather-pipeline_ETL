@@ -1,0 +1,6 @@
+pandas
+google-cloud-bigquery
+requests
+openpyxl
+db-dtypes
+pyarrow
