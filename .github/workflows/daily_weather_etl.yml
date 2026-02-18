@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10' # Updated to 3.10 to fix your "FutureWarning"
+          python-version: '3.10' # Updated to fix warnings
 
       - name: Install Dependencies
         run: |
@@ -24,7 +24,7 @@ jobs:
 
       - name: Run ETL Script
         env: 
-          # CRITICAL FIX: This passes the secret from GitHub to Python
+          # CRITICAL FIX: Maps the GitHub Secret to the Python Environment Variable
           GCP_KEYS_JSON: ${{ secrets.GCP_KEYS_JSON }}
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: python ETL.py
