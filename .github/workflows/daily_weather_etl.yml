@@ -1,0 +1,35 @@
+name: Sahakar Nagar Weather ETL
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # Runs every 30 minutes
+  workflow_dispatch:      # Allows you to click "Run Now" manually to test
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # This step creates the key file from your Secret
+      - name: Authenticate Google Cloud
+        run: |
+          echo "${{ secrets.GCP_KEYS_JSON }}" > google_key.json
+
+      # This step runs your script with the API key injected
+      - name: Run ETL Script
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          GOOGLE_APPLICATION_CREDENTIALS: google_key.json
+        run: python ETL.py
