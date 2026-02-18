@@ -2,8 +2,7 @@ name: Sahakar Nagar Weather ETL
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Runs every 30 minutes
-  workflow_dispatch:      # Allows you to click "Run Now" manually to test
+    - cron: '*/30 * * * *'  
 
 jobs:
   run-pipeline:
@@ -20,16 +19,13 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r requirements.txt
+          pip install pandas google-cloud-bigquery requests openpyxl db-dtypes pyarrow
 
-      # This step creates the key file from your Secret
-      - name: Authenticate Google Cloud
-        run: |
-          echo "${{ secrets.GCP_KEYS_JSON }}" > google_key.json
-
-      # This step runs your script with the API key injected
+      
       - name: Run ETL Script
         env:
+          
+          GCP_KEYS_JSON: ${{ secrets.GCP_KEYS_JSON }}
+          
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
-          GOOGLE_APPLICATION_CREDENTIALS: google_key.json
         run: python ETL.py
