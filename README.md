@@ -23,9 +23,13 @@ An automated, serverless End-to-End (E2E) data pipeline that monitors hyperlocal
 
 ## 📂 Project Structure
 ├── .github/workflows/    # CI/CD Configuration (CRON Schedule)
+
 ├── ETL.py                # Main Extraction & Load Script
+
 ├── Back_fill.py          # One-time Historical Data Upload Script
+
 ├── requirements.txt      # Dependency Management
+
 └── README.md             # Documentation
 
 ## ⚙️ How It Works
