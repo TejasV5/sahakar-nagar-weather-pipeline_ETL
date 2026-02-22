@@ -28,13 +28,13 @@ An automated, serverless data pipeline and machine learning architecture. The sy
 
 ## Project Structure
 ├── .github/workflows/    # CI/CD Configuration (CRON Schedule)
-├
+
 ├── ETL.py                # Main Extraction & Load Script
-├
+
 ├── Back_fill.py          # Historical Data Upload Script
-├
+
 ├── requirements.txt      # Dependency Management
-├
+
 └── README.md             # Documentation
 
 ## Execution Flow
